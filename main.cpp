@@ -56,6 +56,7 @@ void menu(){
 						cout << "Camuflaje:";
 						cin >> extra2;
 						raiz.push_back(new Soprte(nombre,fuerza,vida,extra1,extra2));
+						
 						break;
 					}
 					default :{
@@ -75,7 +76,8 @@ void menu(){
 						cout << "Ingrese numero de soldado:";
 						cin >> po;
 					}while(po > raiz.size()-1 || po< 0 );
-					raiz.erase(raiz.begin()+po);			
+					raiz.erase(raiz.begin()+po);
+					op = 4;			
 				}else{
 					cout << "Cargue los soldados\n";
 				}
@@ -104,6 +106,7 @@ void menu(){
 			case 5:{
 				fileasalt->abrirLectura();
 				filesoprt->abrirLectura();
+				raiz.clear();
 				fileasalt->CargarAsalto(raiz);
 				filesoprt->CaragarSoporte(raiz);
 				fileasalt->cerrarLectura();
