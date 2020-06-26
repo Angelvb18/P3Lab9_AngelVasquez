@@ -4,6 +4,8 @@
 #include "Soprte.h"
 #include "Asalto.h"
 #include <vector>
+#include <stdlib.h>
+#include <time.h>
 using namespace std;
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 void menu();
@@ -11,6 +13,7 @@ int main() {
 	menu();
 	return 0;
 }
+void simulacion(vector<Soldado*>,vector<Soldado*>);
 void menu(){
 	int op;
 	Archivo* filesoprt = new Archivo("Soporte.bin");
@@ -80,8 +83,12 @@ void menu(){
 				break;
 			}
 			case 3:{
-				for(int i = 0 ; i < raiz.size() ; i++){
-					cout <<i<< "." << raiz[i]->getNombre()<< endl;
+				if(raiz.size() > 0){
+					for(int i = 0 ; i < raiz.size() ; i++){
+					   cout <<i<< "." << raiz[i]->getNombre()<< endl;
+				   }
+				}else{
+					cout << "Cargue la lista" << endl;
 				}
 				break;
 			}
@@ -113,7 +120,7 @@ void menu(){
 						equipo2.push_back(raiz[i]);
 					}
 				}
-				
+			    simulacion(equipo1,equipo2);
 				break;
 			}
 			case 7:{
@@ -126,4 +133,49 @@ void menu(){
 			}
 		}
 	}while(op != 7);
+}
+void simulacion(vector<Soldado*> eqp1,vector<Soldado*>eqp2){
+    
+	
+	bool valid =true;
+	int cont = 0;
+	srand(time(NULL));
+	
+	int s1 = eqp1.size()-1, s2 = eqp2.size()-1;
+	int num,num2;
+	while(valid){
+		
+		if(s1 != 0 ){
+		 	num = 0 + rand() % (s1);
+		}else{
+			num = 0;
+		}
+		if(s2 != 0 ){
+			num2 = 0 + rand() % (s2);
+		}else{
+			num2 = 0;
+		}
+		if(eqp1.size() > 0 && eqp2.size() > 0){
+			if(cont%2 == 0){
+				eqp2[num2]->Defensa(eqp1[num]->atacar(eqp2[num2]),eqp1[num]);
+			}else{
+				eqp1[num]->Defensa(eqp2[num2]->atacar(eqp1[num]),eqp2[num2]);
+			}
+			if(eqp1[num]->getPVida() <=0){
+				eqp1.erase(eqp1.begin()+num);
+			}
+			if(eqp2[num2]->getPVida() <=0){
+				eqp2.erase(eqp2.begin()+num2);
+			}
+		}
+		if(eqp1.size() == 0){
+			cout << "Gana equipo 2"<< endl;
+			valid = false;
+		}
+		if(eqp2.size() ==0){
+			cout << "Gana equipo 1"<< endl;
+			valid = false;
+		}
+		cont++;
+	}
 }
