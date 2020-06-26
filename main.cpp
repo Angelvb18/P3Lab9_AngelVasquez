@@ -16,6 +16,7 @@ int main() {
 void simulacion(vector<Soldado*>,vector<Soldado*>);
 void menu(){
 	int op;
+	int validc;
 	Archivo* filesoprt = new Archivo("Soporte.bin");
 	Archivo* fileasalt = new Archivo("Asalto.bin");
 	vector<Soldado*>raiz;
@@ -24,45 +25,49 @@ void menu(){
 		cin >> op;
 		switch(op){
 			case 1:{
-				int op2;
-				string nombre;
-				int  vida,fuerza,extra1,extra2;
-				cout << "1.Asalto\n2.Soporte\n:";
-				cin >> op2;
-				switch(op2){
-					case 1:{
-						cout << "Ingrese nombre:";
-						cin >> nombre;
-						cout << "Fuerza:";
-						cin >> fuerza;
-						cout << "Vida:";
-						cin>> vida;
-						cout << "Velocidad:";
-						cin >> extra1;
-						cout << "Fuerza Extra;";
-						cin >> extra2;
-						raiz.push_back(new Asalto(nombre,fuerza,vida,extra1,extra2));
-						break;
+				if(validc !=0){
+					int op2;
+					string nombre;
+					int  vida,fuerza,extra1,extra2;
+					cout << "1.Asalto\n2.Soporte\n:";
+					cin >> op2;
+					switch(op2){
+						case 1:{
+							cout << "Ingrese nombre:";
+							cin >> nombre;
+							cout << "Fuerza:";
+							cin >> fuerza;
+							cout << "Vida:";
+							cin>> vida;
+							cout << "Velocidad:";
+							cin >> extra1;
+							cout << "Fuerza Extra;";
+							cin >> extra2;
+							raiz.push_back(new Asalto(nombre,fuerza,vida,extra1,extra2));
+							break;
+						}
+						case 2:{
+							cout << "Ingrese nombre:";
+							cin >> nombre;
+							cout << "Fuerza:";
+							cin >> fuerza;
+							cout << "Vida:";
+							cin>> vida;
+							cout << "Blindaje:";
+							cin >> extra1;
+							cout << "Camuflaje:";
+							cin >> extra2;
+							raiz.push_back(new Soprte(nombre,fuerza,vida,extra1,extra2));
+							
+							break;
+						}
+						default :{
+							cout << "No valido" << endl;
+							break;
+						}
 					}
-					case 2:{
-						cout << "Ingrese nombre:";
-						cin >> nombre;
-						cout << "Fuerza:";
-						cin >> fuerza;
-						cout << "Vida:";
-						cin>> vida;
-						cout << "Blindaje:";
-						cin >> extra1;
-						cout << "Camuflaje:";
-						cin >> extra2;
-						raiz.push_back(new Soprte(nombre,fuerza,vida,extra1,extra2));
-						
-						break;
-					}
-					default :{
-						cout << "No valido" << endl;
-						break;
-					}
+				}else{
+					cout << "Cargue los archivos porvafor:)" << endl;
 				}
 				break;
 			}
@@ -111,6 +116,7 @@ void menu(){
 				filesoprt->CaragarSoporte(raiz);
 				fileasalt->cerrarLectura();
 				filesoprt->cerrarLectura();
+				validc = 1;
 				break;
 			}
 			case 6:{
