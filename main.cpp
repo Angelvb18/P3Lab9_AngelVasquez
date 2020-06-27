@@ -100,12 +100,18 @@ void menu(){
 				break;
 			}
 			case 4:{
-				fileasalt->abrirEscritura();
-				fileasalt->GuardarAsalto(raiz);
-				fileasalt->cerrarEscritura();
-				filesoprt->abrirEscritura();
-				filesoprt->GuardarSoporte(raiz);
-				filesoprt->cerrarEscritura();
+				if(validc != 0){
+					fileasalt->abrirEscritura();
+					fileasalt->GuardarAsalto(raiz);
+					fileasalt->cerrarEscritura();
+					filesoprt->abrirEscritura();
+					filesoprt->GuardarSoporte(raiz);
+					filesoprt->cerrarEscritura();
+					cout << "Guardado" << endl;
+				}else{
+					cout << "Cargue la lista por cualquier caso :)" << endl;
+				}
+
 				break;
 			}
 			case 5:{
@@ -117,19 +123,28 @@ void menu(){
 				fileasalt->cerrarLectura();
 				filesoprt->cerrarLectura();
 				validc = 1;
+				cout << "Cargado :)" << endl;
 				break;
 			}
 			case 6:{
-				vector<Soldado*>equipo1;
-				vector<Soldado*>equipo2;
-				for(int i = 0 ; i < raiz.size() ; i++){
-					if(i %2 == 0){
-						equipo1.push_back(raiz[i]);
-					}else{
-						equipo2.push_back(raiz[i]);
+				if(validc != 0){
+					vector<Soldado*>equipo1;
+					vector<Soldado*>equipo2;
+					for(int i = 0 ; i < raiz.size() ; i++){
+						if(i %2 == 0){
+							equipo1.push_back(raiz[i]);
+						}else{
+							equipo2.push_back(raiz[i]);
+						}
 					}
+					if(equipo1.size() == 0 && equipo2.size() == 0 ){
+						cout << "Agregue soldados" << endl;
+					}else
+			    	   simulacion(equipo1,equipo2);
+				}else{
+					cout << "Cargue los Archivos";
 				}
-			    simulacion(equipo1,equipo2);
+
 				break;
 			}
 			case 7:{
